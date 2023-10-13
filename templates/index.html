@@ -1,0 +1,25 @@
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+        <title>zxc</title>
+    </head>
+    <body>
+        <h1>дистанс #meme</h1>
+        
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+
+        <form action="" method="post">
+            <p>
+                <label for="data">qwe</label>
+                <input type="text" name="data">
+            </p>
+            <p>
+                <input type="submit">
+            </p>
+        </form>
+    </body>
+</html>
+
