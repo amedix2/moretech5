@@ -1,12 +1,15 @@
-<html lang="ru">
+<!-- <html lang="ru">
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
         <title>zxc</title>
-        <script src="https://api-maps.yandex.ru/2.1/?apikey=eceeb0e7-e4fb-4761-8b9e-1ce933413375&lang=ru_RU" type="text/javascript"></script>
+        <script src="http://127.0.0.1:5000/static/custom_view.js" type="text/javascript"></script>
+        <script src="http://127.0.0.1:5000/static/multiroute_data_access.js" type="text/javascript"></script>
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=eceeb0e7-e4fb-4761-8b9e-1ce933413375" type="text/javascript"></script>
     </head>
     <body>
         <div id="filter-panel">
+            <div id="viewContainer"></div>
             <h3>Фильтры:</h3>
             <form id="myForm" action="" method="post">
                 <input type="checkbox" id="atms" name="checkbox1" {% if checked1 %}checked{% endif %}>
@@ -19,99 +22,87 @@
                 {% endif %}
         </div>
 
-        <div id="map-test" style="width: 100%; height: 100%" class="map"></div>
-        <script type="text/javascript">
-            // ymaps.ready(init);
-            // function init(){
-            //     var myMap = new ymaps.Map("map", {
-            //         center: [55.76, 37.64],
-            //         zoom: 11
-            //     });
-
-            //     var locations = {{locations|tojson}};
-            //     locations.forEach(function(location) {
-            //         myMap.geoObjects.add(new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.adr+' ||| '+location.name}));
-            //     });
-            // }
-            ymaps.ready(function () {
-
-            let myMap = new ymaps.Map('map-test', {
-            center: [55.76, 37.64],
-            zoom: 11,
-            controls: ['routePanelControl']
-            });
-
-            
-            myMap.options.set('iconPane', 'overlaps');
-            let control = myMap.controls.get('routePanelControl');
-            let city = 'Москва';
-            var locations = {{locations|tojson}};
-            locations.forEach(function(location) {
-                // myMap.geoObjects.add(new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.adr+' ||| '+location.name}));
-                var myPlacemark = new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.adr+' ||| '+location.name}, {
-                    preset: 'islands#blueCircleDotIcon'
-                });
-                myMap.geoObjects.add(myPlacemark);
-            });
-
-            // let location = ymaps.geolocation.get();
-
-            // location.then(function(res) {
-            // 	let locationText = res.geoObjects.get(0).properties.get('text');
-            // 	console.log(locationText)
-            // });
-
-            const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-            };
-
-            function success(pos) {
-            const crd = pos.coords;
-
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-
-
-            let reverseGeocoder = ymaps.geocode([crd.latitude, crd.longitude]);
-            let locationText = null;
-            reverseGeocoder.then(function (res) {
-                locationText = res.geoObjects.get(0).properties.get('text')
-                console.log(locationText)
-
-                control.routePanel.state.set({
-                type: 'masstransit',
-                fromEnabled: false,
-                from: locationText,
-                toEnabled: true,
-                to: `${city}, Невский проспект 146`,
-                });
-            });
-
-            console.log(locationText)
-
-            
-
-            control.routePanel.options.set({
-                types: {
-                masstransit: true,
-                pedestrian: true,
-                taxi: true
-                }
-            })
-            }
-
-            function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-            }
-
-            navigator.geolocation.getCurrentPosition(success, error, options);
-
-
-
-            });
-        </script>
+        <div id="map" style="width: 100%; height: 100%" class="map"></div>
     </body>
+</html>
+ -->
+
+
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Работа с данными и событиями модели мультимаршрута</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <!--
+        Укажите свой API-ключ. Тестовый ключ НЕ БУДЕТ работать на других сайтах.
+        Получить ключ можно в Кабинете разработчика: https://developer.tech.yandex.ru/keys/
+    -->
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=eceeb0e7-e4fb-4761-8b9e-1ce933413375" type="text/javascript"></script>
+    <script src="http://127.0.0.1:5000/static/custom_view.js" type="text/javascript"></script>
+        <script src="http://127.0.0.1:5000/static/multiroute_data_access.js" type="text/javascript"></script>
+    <!-- <style>
+        html, body {
+            width: 100%; height: 100%; padding: 0; margin: 0;
+        }
+
+        #map {
+            width: 95%; height: 50%;
+        }
+        #viewContainer {
+            margin: 8px;
+        }
+    </style> -->
+</head>
+
+<body>
+    <div id="filter-panel">
+        <h3>Фильтры:</h3>
+        <form id="myForm" action="" method="post">
+            <input type="checkbox" id="atms" name="checkbox1" {% if checked1 %}checked{% endif %}>
+            <label for="checkbox1">Банкоматы</label><br>
+            <input type="checkbox" id="bank" name="checkbox2" {% if checked2 %}checked{% endif %}>
+            <label for="checkbox2">Отделения Банка</label><br>
+            <h4 class="h">Цель посещения</h4>
+            <input type="checkbox" id="visit" name="visit1"  {% if checked3 %}checked{% endif %}> 
+            <label for="visit1">Снять деньги со счёта</label><br>
+            <input type="checkbox" id="visit" name="visit2" {% if checked4 %}checked{% endif %}> 
+            <label for="visit2">Пополнить счёт</label><br>
+            <input type="checkbox" id="visit" name="visit3" {% if checked5 %}checked{% endif %}>
+            <label for="visit3">Оплата налогов</label><br>
+            <input type="checkbox" id="visit" name="visit4" {% if checked6 %}checked{% endif %}>
+            <label for="visit4">Оплата ЖКХ</label><br>
+
+            <h4 class="h">Способ передвижения</h4>
+            <input type="checkbox" id="transport" name="transport1" {% if checked7 %}checked{% endif %}>
+            <label for="transport1">Личный транспорт</label><br>
+            <input type="checkbox" id="transport" name="transport2" {% if checked8 %}checked{% endif %}>
+            <label for="transport2">Общественный транспорт</label><br>
+            <input type="checkbox" id="transport" name="transport3" {% if checked9 %}checked{% endif %}>
+            <label for="transport3">пешком</label><br>
+                
+            <h4 class="h">Особенности</h4>
+            <input type="checkbox" id="features" name="features1" {% if checked10 %}checked{% endif %}>
+            <label for="features1">Обслуживание юридических лиц</label><br>
+            <input type="checkbox" id="features" name="features2" {% if checked11 %}checked{% endif %}>
+            <label for="features2">Обслуживание физических лиц</label><br>
+            <input type="checkbox" id="features" name="features3" {% if checked12 %}checked{% endif %}>
+            <label for="features3">Аренда банковских ячеек</label><br>
+            <h4 class="h">Доступность входа на инвалидной коляске</h4>
+            <input type="checkbox" id="invalid" name="invalid1" {% if checked13 %}checked{% endif %}>
+            <label for="invalid1">доступно</label><br>
+            <input type="checkbox" id="invalid" name="invalid2" {% if checked14 %}checked{% endif %}>
+            <label for="invalid2">недоступно</label><br>
+            <input type="submit" value="Применить">
+            {% if message %}
+                <p>{{ message }}</p>
+            {% endif %}
+            <div id="viewContainer"></div>
+    </div>
+    <div id="map"></div>
+</body>
+
 </html>
 

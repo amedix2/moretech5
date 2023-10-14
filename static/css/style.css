@@ -4,11 +4,23 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    font-family: "VTBGroupUI-Regular";
-  }
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  font-family: "VTBGroupUI-Regular";
+}
+html {
+  width: 100%; height: 100%; padding: 0; margin: 0;
+}
+
+#map {
+  width: 95%; height: 100%;
+}
+#viewContainer {
+  margin: 8px;
+}
 
 #filter-panel {
     top: 0;
