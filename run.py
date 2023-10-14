@@ -5,6 +5,32 @@ import json
 
 app = Flask(__name__)
 
+def pythagoras_algorithm(locations: list[dict], longitude: float, latitude: float) -> list:
+    """
+    Короче, я написал функцию и долго распинаться не буду.
+    На функцию идут три значения:
+    1. locations - лист словарей у которых обязательны значения longitude и latitude
+    2. longitude - долгота чела 
+    3. latitude - широта чела
+
+    Функция сортирует locations по растоянии от чела
+    В общем все. Не обосрись!
+    """
+    try:
+        return sorted(locations, key=lambda x: ((x['latitude'] - latitude) ** 2 + (x['longitude'] - longitude) ** 2) ** 0.5)
+    except Exception as e:
+        return ''.join([chr(x) for x in [1045, 1041, 1040, 1051, 32, 1042, 
+                                         1040, 1064, 1059, 32, 1052, 1040, 
+                                         1058, 1045, 1056, 1068, 33, 32, 
+                                         1050, 1054, 1052, 1059, 32, 1057,
+                                         1050, 1040, 1047, 1040, 1053, 
+                                         1054, 32, 1041, 1051, 1071, 1058,
+                                         1068, 32, 1042, 32, 1050, 1054,
+                                         1052, 1052, 1045, 1053, 1058,
+                                         1040, 1056, 1048, 1048, 32,
+                                         1042, 32, 1060, 1059, 1053,
+                                         1050, 1062, 1048, 1048, 63]])
+    pass
 
 @app.route('/', methods=['get', 'post'])
 def index():
