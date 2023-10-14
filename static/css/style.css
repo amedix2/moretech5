@@ -9,6 +9,7 @@ body {
   padding: 0;
   margin: 0;
   display: table;
+  display: flex;
   font-family: "VTBGroupUI-Regular";
 }
 html {
@@ -18,35 +19,45 @@ html {
 #map {
   display: table-cell;
   width: 100%;
-  position: relative;
 }
 #viewContainer {
   margin-top: 30px;
 }
 
 #filter-panel {
-    height: 88%;
     width: 15%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
     background-color: rgb(24, 24, 24);
-    padding: 15px;
-    margin-top: 40px;
-    margin-left: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: table-cell;
-    position: absolute;
-    z-index: 100;
+    color: white;
   }
 
   .h{
     margin-bottom: 5px;
-    margin-top: 20px;
+    margin-top: 30px;
     color: white;
   }
 
-  .filter{
-    color: white;
-  }
-
+.my-hint {
+    display: inline-block;
+    padding: 5px;
+    height: 35px;
+    position: relative;
+    left: -10px;
+    width: 195px;
+    font-size: 11px;
+    line-height: 17px;
+    color: #333333;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #faefb6;
+    border: 1px solid #CDB7B5;
+    border-radius: 20px;
+    font-family: Arial;
+}
 .accept{
   color: white;
   margin-top: 20px;
@@ -62,6 +73,6 @@ html {
 }
 
 #viewContainer{
-  margin-top: 20px;
+  margin-top: 30px;
   color: white;
 }
