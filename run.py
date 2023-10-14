@@ -55,8 +55,8 @@ def index():
         visit6 = False
         visit7 = False
         visit8 = False
-        features1 = False
-        features2 = False
+        features1 = True
+        features2 = True
         features3 = False
         features4 = False
     ans = f'{visit1}, {visit2}, {visit3}, {visit4}, {visit5}, {visit6}, {visit7}, {visit8}, {features1}, {features2}, {features3}, {features4}'
@@ -64,7 +64,7 @@ def index():
 
     data_dicts = []
     for i in data:
-        if features1 == i['entrepreneurs'] and features2 != i['citizen']:
+        if True:     # условие проверки
             data_dicts.append(i)
     print(data_dicts)
 
