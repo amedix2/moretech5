@@ -1,37 +1,7 @@
-<!-- <html lang="ru">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-        <title>zxc</title>
-        <script src="http://127.0.0.1:5000/static/custom_view.js" type="text/javascript"></script>
-        <script src="http://127.0.0.1:5000/static/multiroute_data_access.js" type="text/javascript"></script>
-        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=eceeb0e7-e4fb-4761-8b9e-1ce933413375" type="text/javascript"></script>
-    </head>
-    <body>
-        <div id="filter-panel">
-            <div id="viewContainer"></div>
-            <h3>Фильтры:</h3>
-            <form id="myForm" action="" method="post">
-                <input type="checkbox" id="atms" name="checkbox1" {% if checked1 %}checked{% endif %}>
-                <label for="checkbox1">Банкоматы</label><br>
-                <input type="checkbox" id="bank" name="checkbox2" {% if checked2 %}checked{% endif %}>
-                <label for="checkbox2">Отделения Банка</label><br>
-                <input type="submit" value="Применить">
-                {% if message %}
-                    <p>{{ message }}</p>
-                {% endif %}
-        </div>
-
-        <div id="map" style="width: 100%; height: 100%" class="map"></div>
-    </body>
-</html>
- -->
-
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Работа с данными и событиями модели мультимаршрута</title>
+    <title>zxc</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
@@ -103,6 +73,23 @@
     </div>
     <div id="map"></div>
 </body>
-
+<script type="text/javascript">    
+    var locations = {{locations|tojson}};
+    myPlacemark = new ymaps.Placemark([location.lat, location.lon], {
+            hintContent: 'Собственный значок метки',
+            balloonContent: 'Это красивая метка'
+        }, {
+            // Опции.
+            // Необходимо указать данный тип макета.
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: 'http://127.0.0.1:5000/static/logo.png',
+            // Размеры метки.
+            iconImageSize: [32, 32],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-5, -38]
+        });
+</script>
 </html>
 

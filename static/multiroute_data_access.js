@@ -44,8 +44,8 @@ function init () {
 
     // Создаем карту с добавленной на нее кнопкой.
     var myMap = new ymaps.Map('map', {
-            center: [55.750625, 37.626],
-            zoom: 7,
+            center: [55.76, 37.64],
+            zoom: 11,
             controls: [routeTypeSelector]
         }, {
             buttonMaxWidth: 300
@@ -61,6 +61,22 @@ function init () {
 
     // Добавляем мультимаршрут на карту.
     myMap.geoObjects.add(multiRoute);
+
+    locations.forEach(function(location) {
+        // myMap.geoObjects.add(new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.adr+' ||| '+location.name}));
+        var myPlacemark = new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.adr+' ||| '+location.name}, {
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: 'http://127.0.0.1:5000/static/logo.png',
+            // Размеры метки.
+            iconImageSize: [32, 32],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-16, -16],
+            hideIconOnBalloonOpen: false
+        });
+        myMap.geoObjects.add(myPlacemark);
+    });
 
     function changeRoutingMode(routingMode, targetItem) {
         multiRouteModel.setParams({ routingMode: routingMode }, true);
