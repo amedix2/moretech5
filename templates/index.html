@@ -3,6 +3,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
         <title>zxc</title>
+        <script src="https://api-maps.yandex.ru/2.1/?apikey=eceeb0e7-e4fb-4761-8b9e-1ce933413375&lang=ru_RU" type="text/javascript"></script>
     </head>
     <body>
         <h1>distance #meme</h1>
@@ -20,7 +21,22 @@
             <label for="checkbox3">Чекбокс 3</label><br>
             <input type="submit" value="Применить">
         </form>
-        </form>
+
+        <div id="map" style="width: 600px; height: 400px"></div>
+        <script type="text/javascript">
+            ymaps.ready(init);
+            function init(){
+                var myMap = new ymaps.Map("map", {
+                    center: [55.76, 37.64],
+                    zoom: 7
+                });
+
+                var locations = {{locations|tojson}};
+                locations.forEach(function(location) {
+                    myMap.geoObjects.add(new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.name}));
+                });
+            }
+        </script>
     </body>
 </html>
 
