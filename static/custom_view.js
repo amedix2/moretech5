@@ -28,9 +28,10 @@ ymaps.modules.define('MultiRouteCustomView', [
 
     // Таблица соответствия типа маршрута имени его обработчика.
     CustomView.routeProcessors = {
+        "pedestrian": "processPedestrianRoute",
         "driving": "processDrivingRoute",
         "masstransit": "processMasstransitRoute",
-        "pedestrian": "processPedestrianRoute"
+        
     };
 
     defineClass(CustomView, {
@@ -62,9 +63,9 @@ ymaps.modules.define('MultiRouteCustomView', [
             var routes = multiRouteModel.getRoutes(),
                 result = ["Данные успешно получены."];
             if (routes.length) {
-                result.push("Всего маршрутов: " + routes.length + ".");
                 for (var i = 0, l = routes.length; i < l; i++) {
                     result.push(this.processRoute(i, routes[i]));
+                    break;
                 }
             } else {
                 result.push("Нет маршрутов.");

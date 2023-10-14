@@ -7,7 +7,8 @@ function init () {
             // Путевые точки можно перетаскивать.
             // Маршрут при этом будет перестраиваться.
             wayPointDraggable: true,
-            boundsAutoApply: true
+            boundsAutoApply: true,
+            routingMode: "pedestrian"
         }),
 
         // Создаём выпадающий список для выбора типа маршрута.
@@ -16,9 +17,9 @@ function init () {
                 content: 'Как добраться'
             },
             items: [
-                new ymaps.control.ListBoxItem({data: {content: "Авто"},state: {selected: true}}),
+                new ymaps.control.ListBoxItem({data: {content: "Авто"}}),
                 new ymaps.control.ListBoxItem({data: {content: "Общественным транспортом"}}),
-                new ymaps.control.ListBoxItem({data: {content: "Пешком"}})
+                new ymaps.control.ListBoxItem({data: {content: "Пешком"},state: {selected: true}})
             ],
             options: {
                 itemSelectOnClick: false
@@ -30,9 +31,9 @@ function init () {
         pedestrianRouteItem = routeTypeSelector.get(2);
 
     // Подписываемся на события нажатия на пункты выпадающего списка.
+    pedestrianRouteItem.events.add('click', function (e) { changeRoutingMode('pedestrian', e.get('target')); });
     autoRouteItem.events.add('click', function (e) { changeRoutingMode('auto', e.get('target')); });
     masstransitRouteItem.events.add('click', function (e) { changeRoutingMode('masstransit', e.get('target')); });
-    pedestrianRouteItem.events.add('click', function (e) { changeRoutingMode('pedestrian', e.get('target')); });
 
     ymaps.modules.require([
         'MultiRouteCustomView'
@@ -48,7 +49,8 @@ function init () {
             zoom: 11,
             controls: [routeTypeSelector]
         }, {
-            buttonMaxWidth: 300
+            buttonMaxWidth: 300,
+            yandexMapDisablePoiInteractivity: true
         }),
 
         // Создаем на основе существующей модели мультимаршрут.
@@ -56,14 +58,19 @@ function init () {
             // Путевые точки можно перетаскивать.
             // Маршрут при этом будет перестраиваться.
             wayPointDraggable: true,
-            boundsAutoApply: true
+            boundsAutoApply: true,
+            routeVisible: false,
+            // Показывает нитку активного маршрута.
+            routeActiveVisible: true,
+
+            // setActiveRoute(myFindShortest(myMultiRoute.getRoutes()));
+
         });
 
     // Добавляем мультимаршрут на карту.
     myMap.geoObjects.add(multiRoute);
 
     locations.forEach(function(location) {
-        // myMap.geoObjects.add(new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.adr+' ||| '+location.name}));
         var myPlacemark = new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.adr+' ||| '+location.name}, {
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
@@ -82,14 +89,15 @@ function init () {
         multiRouteModel.setParams({ routingMode: routingMode }, true);
 
         // Отменяем выбор элементов.
+        pedestrianRouteItem.deselect();
         autoRouteItem.deselect();
         masstransitRouteItem.deselect();
-        pedestrianRouteItem.deselect();
 
         // Выбираем элемент и закрываем список.
         targetItem.select();
         routeTypeSelector.collapse();
     }
+    
 }
 
 ymaps.ready(init);
