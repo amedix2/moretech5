@@ -25,10 +25,8 @@ html {
 }
 
 #filter-panel {
-    width: 15%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
+    width: 20%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
     background-color: rgb(24, 24, 24);
-
-  
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: table-cell;
     color: white;
@@ -49,19 +47,17 @@ html {
 .my-hint {
     display: inline-block;
     padding: 5px;
-    height: 35px;
     position: relative;
+    width: 200px;
     left: -10px;
-    width: 195px;
-    font-size: 11px;
+    font-size: 13px;
     line-height: 17px;
     color: #333333;
     text-align: center;
     vertical-align: middle;
-    background-color: #faefb6;
-    border: 1px solid #CDB7B5;
-    border-radius: 20px;
-    font-family: Arial;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    font-family: 'VTBGroupUI-Regular';
 }
 .accept{
   color: white;
