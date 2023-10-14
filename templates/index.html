@@ -30,7 +30,7 @@
 
                 var locations = {{locations|tojson}};
                 locations.forEach(function(location) {
-                    myMap.geoObjects.add(new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.name}));
+                    myMap.geoObjects.add(new ymaps.Placemark([location.lat, location.lon], {balloonContent: location.adr+' ||| '+location.name}));
                 });
             }
         </script>

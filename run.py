@@ -12,7 +12,7 @@ def index():
         data = json.load(f)
     # print(data)
 
-    locations = [{'name': d['salePointName'], 'lat': d['latitude'], 'lon': d['longitude']} for d in data]
+    locations = [{'name': d['salePointName'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude']} for d in data]
     # print(locations)
 
     if request.method == 'POST':
