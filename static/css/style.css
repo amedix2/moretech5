@@ -1,7 +1,13 @@
+@font-face {
+  font-family: "VTBGroupUI-Regular";
+  src: url("VTBGroupUI-Regular.ttf"); 
+}
+
 body {
     margin: 0;
     padding: 0;
     display: flex;
+    font-family: "VTBGroupUI-Regular";
   }
 
 #filter-panel {
