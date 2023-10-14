@@ -1,6 +1,21 @@
-h1 {
-    border: 2px #000 solid;
-    color: purple;
-    text-align: center;
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+#filter-panel {
+    top: 0;
+    right: 0;
+    width: 15%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
+    height: 100%;
+    background-color: #fff;
     padding: 10px;
-}
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Дополнительные стили для панели фильтров */
+  #filter-panel h3 {
+    margin-top: 0;
+  }
