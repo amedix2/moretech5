@@ -5,20 +5,21 @@
         <title>zxc</title>
     </head>
     <body>
-        <h1>дистанс #meme</h1>
+        <h1>distance #meme</h1>
         
         {% if message %}
             <p>{{ message }}</p>
         {% endif %}
 
-        <form action="" method="post">
-            <p>
-                <label for="data">qwe</label>
-                <input type="text" name="data">
-            </p>
-            <p>
-                <input type="submit">
-            </p>
+        <form id="myForm" action="" method="post">
+            <input type="checkbox" id="checkbox1" name="checkbox1" {% if checked1 %}checked{% endif %}>
+            <label for="checkbox1">Чекбокс 1</label><br>
+            <input type="checkbox" id="checkbox2" name="checkbox2" {% if checked2 %}checked{% endif %}>
+            <label for="checkbox2">Чекбокс 2</label><br>
+            <input type="checkbox" id="checkbox3" name="checkbox3" {% if checked3 %}checked{% endif %}>
+            <label for="checkbox3">Чекбокс 3</label><br>
+            <input type="submit" value="Применить">
+        </form>
         </form>
     </body>
 </html>
