@@ -59,30 +59,27 @@
 
 <body>
     <div id="filter-panel">
-        <h3>Фильтры:</h3>
         <form id="myForm" action="" method="post">
-            <input type="checkbox" id="atms" name="checkbox1" {% if checked1 %}checked{% endif %}>
-            <label for="checkbox1">Банкоматы</label><br>
-            <input type="checkbox" id="bank" name="checkbox2" {% if checked2 %}checked{% endif %}>
-            <label for="checkbox2">Отделения Банка</label><br>
             <h4 class="h">Цель посещения</h4>
-            <input type="checkbox" id="visit" name="visit1"  {% if checked3 %}checked{% endif %}> 
-            <label for="visit1">Снять деньги со счёта</label><br>
-            <input type="checkbox" id="visit" name="visit2" {% if checked4 %}checked{% endif %}> 
-            <label for="visit2">Пополнить счёт</label><br>
-            <input type="checkbox" id="visit" name="visit3" {% if checked5 %}checked{% endif %}>
-            <label for="visit3">Оплата налогов</label><br>
-            <input type="checkbox" id="visit" name="visit4" {% if checked6 %}checked{% endif %}>
-            <label for="visit4">Оплата ЖКХ</label><br>
+            <input type="checkbox" id="visit" name="visit"  {% if checked1 %}checked{% endif %}> 
+            <label for="visit">банкомат</label><br>
+            <input type="checkbox" id="visit" name="visit1"  {% if checked2 %}checked{% endif %}> 
+            <label for="visit1">Операции со счётом</label><br>
+            <input type="checkbox" id="visit" name="visit2" {% if checked3 %}checked{% endif %}> 
+            <label for="visit2">Платежи</label><br>
+            <input type="checkbox" id="visit" name="visit3" {% if checked4 %}checked{% endif %}>
+            <label for="visit3">Перевод вне РФ</label><br>
+            <input type="checkbox" id="visit" name="visit4" {% if checked5 %}checked{% endif %}>
+            <label for="visit4">Офоромление карты</label><br>
+            <input type="checkbox" id="visit" name="visit5" {% if checked6 %}checked{% endif %}>
+            <label for="visit5">Получение ипотеки</label><br>
+            <input type="checkbox" id="visit" name="visit6" {% if checked7 %}checked{% endif %}>
+            <label for="visit6">Получение кредита</label><br>
+            <input type="checkbox" id="visit" name="visit7" {% if checked8 %}checked{% endif %}>
+            <label for="visit7">Обмен валют</label><br>
+            <input type="checkbox" id="visit" name="visit8" {% if checked9 %}checked{% endif %}>
+            <label for="visit8">Покупка активов</label><br>
 
-            <h4 class="h">Способ передвижения</h4>
-            <input type="checkbox" id="transport" name="transport1" {% if checked7 %}checked{% endif %}>
-            <label for="transport1">Личный транспорт</label><br>
-            <input type="checkbox" id="transport" name="transport2" {% if checked8 %}checked{% endif %}>
-            <label for="transport2">Общественный транспорт</label><br>
-            <input type="checkbox" id="transport" name="transport3" {% if checked9 %}checked{% endif %}>
-            <label for="transport3">пешком</label><br>
-                
             <h4 class="h">Особенности</h4>
             <input type="checkbox" id="features" name="features1" {% if checked10 %}checked{% endif %}>
             <label for="features1">Обслуживание юридических лиц</label><br>
@@ -90,12 +87,9 @@
             <label for="features2">Обслуживание физических лиц</label><br>
             <input type="checkbox" id="features" name="features3" {% if checked12 %}checked{% endif %}>
             <label for="features3">Аренда банковских ячеек</label><br>
-            <h4 class="h">Доступность входа на инвалидной коляске</h4>
-            <input type="checkbox" id="invalid" name="invalid1" {% if checked13 %}checked{% endif %}>
-            <label for="invalid1">доступно</label><br>
-            <input type="checkbox" id="invalid" name="invalid2" {% if checked14 %}checked{% endif %}>
-            <label for="invalid2">недоступно</label><br>
-            <input type="submit" value="Применить">
+            <input type="checkbox" id="features" name="features4" {% if checked13 %}checked{% endif %}>
+            <label for="features4">Пандус</label><br>
+            <input type="button" value="Применить" class="accept">
             {% if message %}
                 <p>{{ message }}</p>
             {% endif %}
