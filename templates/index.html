@@ -29,6 +29,9 @@
 
 <body>
     <div id="filter-panel">
+        <div class="logo">
+            <img id="logo" src="{{ url_for('static', filename= 'images.png') }}">
+        </div>
         <form id="myForm" action="" method="post">
             <h4 class="h">Цель посещения</h4>
             <input type="checkbox" id="visit" name="visit"  {% if checked1 %}checked{% endif %}> 

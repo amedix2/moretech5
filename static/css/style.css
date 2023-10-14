@@ -27,13 +27,16 @@ html {
 #filter-panel {
     width: 15%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
     background-color: rgb(24, 24, 24);
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: table-cell;
     color: white;
   }
+
+#myForm{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
 
   .h{
     margin-bottom: 5px;
@@ -58,4 +61,18 @@ html {
 #viewContainer{
   margin-top: 30px;
   color: white;
+}
+
+.logo{
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 100%;
+  text-align: center;
+}
+
+#logo{
+  text-align: center;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
 }
