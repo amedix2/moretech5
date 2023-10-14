@@ -60,6 +60,9 @@
             <input type="checkbox" id="features4" name="features4" {% if checked13 %}checked{% endif %}>
             <label for="features4">Пандус</label><br>
             <input type="submit" id="applyButton" value="Применить" class="accept">
+            {% if message %}
+                <p>{{ message }}</p>
+            {% endif %}
             <div id="viewContainer"></div>
 
     </div>
