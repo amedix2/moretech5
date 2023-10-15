@@ -68,6 +68,7 @@ def index():
     locations = {}
     for i in data_dicts:
         wait = i['peps']*(0.25*visit0 + 0.37*visit1 + 0.57*visit2 + 0.57*visit3 + 0.37*visit4 + 0.67*visit5 +0.67*visit6 + 0.07*visit7 + 0.37*visit8)
+        if wait != 0: wait += 0.37 * i['peps']  # фактор бабки
         i['wait'] = wait
 
     ans = f'Найдено отделений: {len(data_dicts)}'
