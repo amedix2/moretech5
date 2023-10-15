@@ -1,8 +1,9 @@
 function init () {
-    var yourLocation = [55.734876, 37.59308];
-
     // Создаем модель мультимаршрута.
-    var multiRouteModel = new ymaps.multiRouter.MultiRouteModel([], {
+    var multiRouteModel = new ymaps.multiRouter.MultiRouteModel([
+        [55.734876, 37.59308], 
+        "Москва, ул. Мясницкая"
+    ], {
             // Путевые точки можно перетаскивать.
             // Маршрут при этом будет перестраиваться.
             wayPointDraggable: true,
@@ -44,8 +45,8 @@ function init () {
 
     // Создаем карту с добавленной на нее кнопкой.
     var myMap = new ymaps.Map('map', {
-            center: [55.76, 37.64],
-            zoom: 11,
+        center: [55.76, 37.64],
+        zoom: 11,
             controls: [routeTypeSelector]
         }, {
             buttonMaxWidth: 300,
@@ -111,8 +112,8 @@ function init () {
         myMap.geoObjects.add(myPlacemark);
     
         myPlacemark.events.add('click', function (e) {
-            var lat = location.lat;
-            var lon = location.lon;
+            var lat = location.lon;
+            var lon = location.lat;
             updateRouteEndPoint(lat, lon);
         });
     });
