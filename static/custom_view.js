@@ -80,7 +80,7 @@ ymaps.modules.define('MultiRouteCustomView', [
         processRoute: function (index, route) {
             // Берем из таблицы обработчик для данного типа маршрута и применяем его.
             var processorName = CustomView.routeProcessors[route.properties.get("type")];
-            return (index + 1) + ". " + this[processorName](route);
+            return this[processorName](route);
         },
 
         processDrivingRoute: function (route) {
@@ -92,7 +92,6 @@ ymaps.modules.define('MultiRouteCustomView', [
         processMasstransitRoute: function (route) {
             var result = ["Маршрут на общественном транспорте."];
             result.push(this.createCommonRouteOutput(route));
-            result.push("Описание маршута: <ul>" + this.createMasstransitRouteOutput(route) + "</ul>");
             return result.join("<br/>");
         },
 

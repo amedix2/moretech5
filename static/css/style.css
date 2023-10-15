@@ -25,8 +25,10 @@ html {
 }
 
 #filter-panel {
-    width: 20%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
+    width: 15%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
     background-color: rgb(24, 24, 24);
+
+  
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: table-cell;
     color: white;
@@ -44,7 +46,7 @@ html {
     color: white;
   }
 
-.my-hint {
+  .my-hint {
     display: inline-block;
     padding: 5px;
     position: relative;

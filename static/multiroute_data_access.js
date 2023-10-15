@@ -1,47 +1,8 @@
-function addBanksAndRoutesToMap() {
-
-
-    // Список банков с координатами.
-    var banks = [];
-    for (var i = 0; i < locations.length; i++) {
-        banks.push([locations[i]['lat'], locations[i]['lon']]);
-    }
-    
-    console.log(banks)
-
-    // Добавляем банки на карту в виде Placemark-ов.
-    banks.forEach(function (bank) {
-        var bankPlacemark = new ymaps.Placemark(bank.location, { hintContent: bank.name });
-        map.geoObjects.add(bankPlacemark);
-    });
-
-    // // Строим маршруты к банкам.
-    // banks.forEach(function (bank) {
-    //     var route = new ymaps.multiRouter.MultiRoute({
-    //         referencePoints: [yourLocation, bank.location],
-    //         params: { routingMode: 'masstransit' } // Режим маршрутизации для общественного транспорта.
-    //     });
-    //     map.geoObjects.add(route);
-    // });
-}
-
-
-
-
 function init () {
-    // Создаем модель мультимаршрута.
     var yourLocation = [55.734876, 37.59308];
-    var map = new ymaps.Map('map', {
-        center: yourLocation,
-        zoom: 12
-    });
-    // addBanksAndRoutesToMap();
-    // var bank_sorted = pythagorasAlgorithm(locations, yourLocation[0], yourLocation[1]);
 
-    var multiRouteModel = new ymaps.multiRouter.MultiRouteModel([
-        yourLocation, 
-        "Москва, ул. Мясницкая"
-    ], {
+    // Создаем модель мультимаршрута.
+    var multiRouteModel = new ymaps.multiRouter.MultiRouteModel([], {
             // Путевые точки можно перетаскивать.
             // Маршрут при этом будет перестраиваться.
             wayPointDraggable: true,
@@ -83,8 +44,8 @@ function init () {
 
     // Создаем карту с добавленной на нее кнопкой.
     var myMap = new ymaps.Map('map', {
-        center: [55.76, 37.64],
-        zoom: 11,
+            center: [55.76, 37.64],
+            zoom: 11,
             controls: [routeTypeSelector]
         }, {
             buttonMaxWidth: 300,
@@ -150,8 +111,8 @@ function init () {
         myMap.geoObjects.add(myPlacemark);
     
         myPlacemark.events.add('click', function (e) {
-            var lat = location.lon;
-            var lon = location.lat;
+            var lat = location.lat;
+            var lon = location.lon;
             updateRouteEndPoint(lat, lon);
         });
     });
