@@ -39,9 +39,9 @@
 
             <h4 class="h">Особенности</h4>
             <input type="checkbox" id="features1" name="features1" {% if checked10 %}checked{% endif %}>
-            <label for="features1">Обслуживание юридических лиц</label><br>
+            <label for="features1">Обслуживание юрлиц</label><br>
             <input type="checkbox" id="features2" name="features2" {% if checked11 %}checked{% endif %}>
-            <label for="features2">Обслуживание физических лиц</label><br>
+            <label for="features2">Обслуживание физлиц</label><br>
             <input type="checkbox" id="features3" name="features3" {% if checked12 %}checked{% endif %}>
             <label for="features3">Аренда банковских ячеек</label><br>
             <input type="checkbox" id="features4" name="features4" {% if checked13 %}checked{% endif %}>
@@ -50,10 +50,15 @@
             {% if message %}
                 <p>{{ message }}</p>
             {% endif %}
-            <div id="viewContainer"></div>
 
     </div>
     <div id="map"></div>
+    <div class="VTBtyan">
+    <div id="viewContainer"></div>
+    <div class="tyan">
+        <img id="tyan" src="{{ url_for('static', filename='vtbtyan.png') }}">
+    </div>
+</div>
 </body>
 <script type="text/javascript">    
     var locations = {{locations|tojson}};
@@ -72,5 +77,11 @@
             document.getElementById("applyButton").addEventListener("click", function(event) {
             event.preventDefault(); // Отменяет отправку формы
         });
+    function test(){
+        var audio = document.createElement('audio');
+        audio.setAttribute("autoplay","true");
+        audio.innerHTML = "<source src=\"audio/test.mp3\" type=\"audio/mpeg\">";
+        document.body.appendChild(audio);
+    }
 </script>
 </html>

@@ -17,21 +17,25 @@ html {
 }
 
 #map {
+  position: relative;
   display: table-cell;
   width: 100%;
 }
 #viewContainer {
-  margin-top: 30px;
+  width: 20%; 
+  background-color: rgb(40, 40, 40);
+  display: table-cell;
+  color: white;
+  position: relative;
+  padding: 15px;
 }
 
 #filter-panel {
-    width: 15%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
-    background-color: rgb(24, 24, 24);
-
-  
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 20%; /* 25% ширины контейнера, чтобы панель занимала правую часть */
+    background-color: rgb(40, 40, 40);
     display: table-cell;
     color: white;
+    position: relative;
   }
 
 #myForm{
@@ -75,11 +79,6 @@ html {
   background:  linear-gradient(90deg, rgb(0, 55, 255) 0%, rgb(0, 55, 255) 75%);
 }
 
-#viewContainer{
-  margin-top: 30px;
-  color: white;
-}
-
 .logo{
   width: 100%;
   margin-top: 20px;
@@ -92,4 +91,16 @@ html {
   border-radius: 100%;
   width: 100px;
   height: 100px;
+}
+
+#tyan{
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+
+.VTBtyan{
+  position: relative;
+  width: 20%;
+  background-color: rgb(40, 40, 40);
 }
