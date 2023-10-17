@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/', methods=['get', 'post'])
 def index():
     # Загрузка данных из файла JSON
-    with open('data/answer3.0.json', 'r', ) as f:
+    with open('data/answer4.json', 'r') as f:
         data = json.load(f)
     f.close()
 
@@ -63,10 +63,10 @@ def index():
             if const_time.lower() != 'выходной':
                 if int(const_time.split('-')[0].split(':')[0]) * 60 < time < int(
                         const_time.split('-')[1].split(':')[0]) * 60:
-                    if features1 <= atm["entrepreneurs"] and features2 <= atm["citizen"] and features4 <= atm["has_ramp"]:
+                    if features1 <= atm["entrepreneurs"] and features2 <= atm["individuals"] and features4 <= atm["hasRamp"]:
                         data_dicts.append(atm)
         except Exception:
-            ...
+            pass
 
     # расчет времени ожидания в очереди
     for i in data_dicts:
@@ -78,9 +78,9 @@ def index():
         i['wait'] = wait
 
     ans = f'Найдено отделений: {len(data_dicts)}'
-
     locations = [{'name': d['name'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude'], 'pep': d['peps'],
                   'time': d['wait']} for d in data_dicts]
+    print(locations)
 
     # Возвращение результата в виде HTML-страницы
     return render_template('index.html', message=ans,
