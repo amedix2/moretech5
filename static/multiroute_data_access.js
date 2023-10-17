@@ -1,15 +1,40 @@
 function init () {
+    var banks = [];
+    for (var i = 0; i < locations.length; i++) {
+        banks.push([locations[i]['lat'], locations[i]['lon']]);
+    }
+
     var yourLocation = [55.734876, 37.59308];
 
+    banks.sort(function (a, b) {
+        let pidor = function (x) {
+          return Math.pow(
+            Math.pow(x[0] - yourLocation[0], 2) +
+              Math.pow(x[1] - yourLocation[1], 2),
+            0.5
+          );
+        };
+        if (pidor(a) < pidor(b)) {
+          return -1;
+        } else if (pidor(a) > pidor(b)) {
+          return 1;
+        }
+        return 0;
+      });
+      
+
     // Создаем модель мультимаршрута.
-    var multiRouteModel = new ymaps.multiRouter.MultiRouteModel([], {
+    // for (var i = 9; i > -1; i--) {
+    var multiRouteModel = new ymaps.multiRouter.MultiRouteModel([
+        yourLocation, 
+        banks[i]
+    ], {
             // Путевые точки можно перетаскивать.
             // Маршрут при этом будет перестраиваться.
             wayPointDraggable: true,
             boundsAutoApply: true,
             routingMode: "masstransit"
         }),
-
         // Создаём выпадающий список для выбора типа маршрута.
         routeTypeSelector = new ymaps.control.ListBox({
             data: {
@@ -28,30 +53,29 @@ function init () {
         autoRouteItem = routeTypeSelector.get(0),
         masstransitRouteItem = routeTypeSelector.get(1),
         pedestrianRouteItem = routeTypeSelector.get(2);
+        // Подписываемся на события нажатия на пункты выпадающего списка.
+        pedestrianRouteItem.events.add('click', function (e) { changeRoutingMode('pedestrian', e.get('target')); });
+        autoRouteItem.events.add('click', function (e) { changeRoutingMode('auto', e.get('target')); });
+        masstransitRouteItem.events.add('click', function (e) { changeRoutingMode('masstransit', e.get('target')); });
 
-    // Подписываемся на события нажатия на пункты выпадающего списка.
-    pedestrianRouteItem.events.add('click', function (e) { changeRoutingMode('pedestrian', e.get('target')); });
-    autoRouteItem.events.add('click', function (e) { changeRoutingMode('auto', e.get('target')); });
-    masstransitRouteItem.events.add('click', function (e) { changeRoutingMode('masstransit', e.get('target')); });
-
-    ymaps.modules.require([
+        ymaps.modules.require([
         'MultiRouteCustomView'
     ], function (MultiRouteCustomView) {
         // Создаем экземпляр текстового отображения модели мультимаршрута.
+        console.log(route.properties.get("duration").text);
         // см. файл custom_view.js
         new MultiRouteCustomView(multiRouteModel);
     });
 
     // Создаем карту с добавленной на нее кнопкой.
     var myMap = new ymaps.Map('map', {
-            center: [55.76, 37.64],
-            zoom: 11,
+        center: [55.76, 37.64],
+        zoom: 11,
             controls: [routeTypeSelector]
         }, {
             buttonMaxWidth: 300,
             yandexMapDisablePoiInteractivity: true
         }),
-
         HintLayout = ymaps.templateLayoutFactory.createClass( "<div class='my-hint'>" +
             "<b>{{ properties.object }}</b><br />" +
             "{{ properties.address }}" +
@@ -76,7 +100,6 @@ function init () {
                 }
             }
         ),
-
         // Создаем на основе существующей модели мультимаршрут.
         multiRoute = new ymaps.multiRouter.MultiRoute(multiRouteModel, {
             // Путевые точки можно перетаскивать.
@@ -86,15 +109,11 @@ function init () {
             routeVisible: false,
             // Показывает нитку активного маршрута.
             routeActiveVisible: true,
-
             // setActiveRoute(myFindShortest(myMultiRoute.getRoutes()));
-
         });
-
     // Добавляем мультимаршрут на карту.
     myMap.geoObjects.add(multiRoute);
     
-
     locations.forEach(function(location) {
         var myPlacemark = new ymaps.Placemark([location.lat, location.lon], {
             address: location.name,
@@ -109,14 +128,14 @@ function init () {
         });
     
         myMap.geoObjects.add(myPlacemark);
-    
+
         myPlacemark.events.add('click', function (e) {
-            var lat = location.lat;
-            var lon = location.lon;
+            var lat = location.lon;
+            var lon = location.lat;
             updateRouteEndPoint(lat, lon);
         });
     });
-
+    
     function updateRouteEndPoint(lat, lon) {
         multiRouteModel.setReferencePoints([yourLocation, [lat, lon]]);
         console.log([lat, lon])
@@ -124,20 +143,16 @@ function init () {
             // Маршрут перестроен, можно выполнить дополнительные действия
         });
     }
-
     function changeRoutingMode(routingMode, targetItem) {
         multiRouteModel.setParams({ routingMode: routingMode }, true);
-
         // Отменяем выбор элементов.
         pedestrianRouteItem.deselect();
         autoRouteItem.deselect();
         masstransitRouteItem.deselect();
-
         // Выбираем элемент и закрываем список.
         targetItem.select();
         routeTypeSelector.collapse();
     }
     
 }
-
 ymaps.ready(init);
