@@ -82,13 +82,13 @@ def index():
                 + 0.67 * visit5 + 0.67 * visit6 + 0.07 * visit7 + 0.37 * visit8)
 
         if wait != 0: wait += 0.37 * i['peps']  # фактор бабки
-        i['wait'] = wait
+        i['wait'] = int(wait)
 
     ans = f'Найдено отделений: {len(data_dicts)}'
     locations = [{'name': d['name'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude'], 'pep': d['peps'],
                   'time': d['wait']} for d in data_dicts]
 
-    # Возвращение результата в виде HTML-страницы
+    # рендер страницы
     return render_template('index.html', message=ans,
                            checked1=visit0, checked2=visit1, checked3=visit2, checked4=visit3, checked5=visit4,
                            checked6=visit5, checked7=visit6, checked8=visit7, checked9=visit8, checked10=features1,

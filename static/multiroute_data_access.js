@@ -62,7 +62,7 @@ function init () {
             'MultiRouteCustomView'
         ], function (MultiRouteCustomView) {
             // Создаем экземпляр текстового отображения модели мультимаршрута.
-            
+
             // см. файл custom_view.js
             new MultiRouteCustomView(multiRouteModel);
         });

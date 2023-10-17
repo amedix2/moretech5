@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>zxc</title>
+    <title>Ближайшие банки ВТБ</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
-
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=eceeb0e7-e4fb-4761-8b9e-1ce933413375" type="text/javascript"></script>
     <script src="http://127.0.0.1:5000/static/custom_view.js" type="text/javascript"></script>
         <script src="http://127.0.0.1:5000/static/multiroute_data_access.js" type="text/javascript"></script>
@@ -55,7 +54,7 @@
     <div id="map"></div>
     <div class="VTBtyan">
     <div id="viewContainer"></div>
-    <div class="tyan">
+    <div class="tyan" onclick="order()">
         <img id="tyan" src="{{ url_for('static', filename='vtbtyan.png') }}">
     </div>
 </div>
@@ -77,11 +76,12 @@
             document.getElementById("applyButton").addEventListener("click", function(event) {
             event.preventDefault(); // Отменяет отправку формы
         });
-    function test(){
-        var audio = document.createElement('audio');
-        audio.setAttribute("autoplay","true");
-        audio.innerHTML = "<source src=\"audio/test.mp3\" type=\"audio/mpeg\">";
-        document.body.appendChild(audio);
+        function order()
+        {
+            var audio = new Audio();
+            audio.src = "{{ url_for('static', filename='audio.ogg') }}";
+            audio.autoplay = true;
+            return true;
     }
 </script>
 </html>
