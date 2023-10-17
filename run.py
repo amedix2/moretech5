@@ -80,7 +80,6 @@ def index():
     ans = f'Найдено отделений: {len(data_dicts)}'
     locations = [{'name': d['name'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude'], 'pep': d['peps'],
                   'time': d['wait']} for d in data_dicts]
-    print(locations)
 
     # Возвращение результата в виде HTML-страницы
     return render_template('index.html', message=ans,
