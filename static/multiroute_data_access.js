@@ -1,7 +1,45 @@
+function addBanksAndRoutesToMap() {
+
+
+    // Список банков с координатами.
+    var banks = [];
+    for (var i = 0; i < locations.length; i++) {
+        banks.push([locations[i]['lat'], locations[i]['lon']]);
+    }
+    
+    console.log(banks)
+
+    // Добавляем банки на карту в виде Placemark-ов.
+    banks.forEach(function (bank) {
+        var bankPlacemark = new ymaps.Placemark(bank.location, { hintContent: bank.name });
+        map.geoObjects.add(bankPlacemark);
+    });
+
+    // // Строим маршруты к банкам.
+    // banks.forEach(function (bank) {
+    //     var route = new ymaps.multiRouter.MultiRoute({
+    //         referencePoints: [yourLocation, bank.location],
+    //         params: { routingMode: 'masstransit' } // Режим маршрутизации для общественного транспорта.
+    //     });
+    //     map.geoObjects.add(route);
+    // });
+}
+
+
+
+
 function init () {
     // Создаем модель мультимаршрута.
+    var yourLocation = [55.734876, 37.59308];
+    var map = new ymaps.Map('map', {
+        center: yourLocation,
+        zoom: 12
+    });
+    // addBanksAndRoutesToMap();
+    // var bank_sorted = pythagorasAlgorithm(locations, yourLocation[0], yourLocation[1]);
+
     var multiRouteModel = new ymaps.multiRouter.MultiRouteModel([
-        [55.734876, 37.59308], 
+        yourLocation, 
         "Москва, ул. Мясницкая"
     ], {
             // Путевые точки можно перетаскивать.
