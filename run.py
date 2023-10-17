@@ -54,19 +54,26 @@ def index():
 
     # Фильтрация отделений
     data_dicts = []
+    k_err = 0
     for atm in data:
         try:
-            if features2 and not features1:
+            try:
                 const_time = atm['open_hours_ind'][now.weekday()]["hours"]
-            else:
+            except Exception:
                 const_time = atm['open_hours_ent'][now.weekday()]["hours"]
+            if features1 or features2:
+                if features2 and not features1:
+                    const_time = atm['open_hours_ind'][now.weekday()]["hours"]
+                else:
+                    const_time = atm['open_hours_ent'][now.weekday()]["hours"]
             if const_time.lower() != 'выходной':
                 if int(const_time.split('-')[0].split(':')[0]) * 60 < time < int(
                         const_time.split('-')[1].split(':')[0]) * 60:
                     if features1 <= atm["entrepreneurs"] and features2 <= atm["individuals"] and features4 <= atm["hasRamp"]:
                         data_dicts.append(atm)
         except Exception:
-            pass
+            k_err += 1
+    print(f'data errors: {k_err}')
 
     # расчет времени ожидания в очереди
     for i in data_dicts:
