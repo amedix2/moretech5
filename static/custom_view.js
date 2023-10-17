@@ -111,7 +111,8 @@ ymaps.modules.define('MultiRouteCustomView', [
             }
             return "<br/>" + "Протяженность маршрута: " + route.properties.get("distance").text + "<br/><br/>" +
                 "Время в пути: " + route.properties.get("duration").text + "<br/><br/>" +
-                "Среднее время ожидания: " + locations[i]['time'] + " мин";
+                "Среднее время ожидания: " + locations[i]['time'] + " мин" + "<br/><br/>" +
+                "Людей в отделении: " + locations[i]['pep'];
 
         },
 

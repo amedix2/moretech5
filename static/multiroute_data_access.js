@@ -3,7 +3,7 @@ function init () {
     for (var i = 0; i < locations.length; i++) {
         banks.push([locations[i]['lat'], locations[i]['lon']]);
     }
-
+    //var yourLocation = ymaps.geolocation.get();
     var yourLocation = [55.76, 37.64];
 
     banks.sort(function (a, b) {
@@ -62,7 +62,6 @@ function init () {
             'MultiRouteCustomView'
         ], function (MultiRouteCustomView) {
             // Создаем экземпляр текстового отображения модели мультимаршрута.
-
             // см. файл custom_view.js
             new MultiRouteCustomView(multiRouteModel);
         });
