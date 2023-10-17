@@ -103,8 +103,15 @@ ymaps.modules.define('MultiRouteCustomView', [
 
         // Метод, формирующий общую часть описания для всех типов маршрутов.
         createCommonRouteOutput: function (route) {
-            return "Протяженность маршрута: " + route.properties.get("distance").text + "<br/>" +
-                "Время в пути: " + route.properties.get("duration").text + locations.time;
+            console.log(locations);
+            console.log(route.properties._data.boundedBy[0]);
+            var i = 0;
+            while (locations[i]['lat'] == route.properties._data.boundedBy[0][0] && locations[i]['lon'] == route.properties._data.boundedBy[0][1]) {
+                i++;
+            }
+            return "<br/>" + "Протяженность маршрута: " + route.properties.get("distance").text + "<br/><br/>" +
+                "Время в пути: " + route.properties.get("duration").text + "<br/><br/>" +
+                "Среднее время ожидания: " + locations[i]['time'] + " мин";
         },
 
         // Метод, строящий список текстовых описаний для

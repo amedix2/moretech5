@@ -62,7 +62,7 @@ function init () {
             'MultiRouteCustomView'
         ], function (MultiRouteCustomView) {
             // Создаем экземпляр текстового отображения модели мультимаршрута.
-            console.log(route.properties.get("duration").text);
+            
             // см. файл custom_view.js
             new MultiRouteCustomView(multiRouteModel);
         });
