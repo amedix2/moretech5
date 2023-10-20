@@ -17,8 +17,9 @@ def pythagoras_algorithm(locations: list[dict], longitude: float, latitude: floa
 
 @app.route('/', methods=['get', 'post'])
 def index():
-    with codecs.open('data/answer3.0.json', 'r', 'utf-8-sig') as f:
+    with open('data/answer3.0.json', 'r',) as f:
         data = json.load(f)
+    f.close()
 
     if request.method == 'POST':
         visit0 = 'visit0' in request.form  # atm
@@ -50,7 +51,6 @@ def index():
         features4 = False
     now = datetime.now().astimezone(pytz.timezone('Europe/Moscow'))
     time = now.hour * 60 + now.minute
-    print(time)
     data_dicts = []
     for atm in data:
         try:
@@ -59,12 +59,11 @@ def index():
             else:
                 const_time = atm['open_hours_ent'][now.weekday()]["hours"]
             if const_time.lower() != 'выходной':
-                print(int(const_time.split('-')[0].split(':')[0])*60, time, int(const_time.split('-')[1].split(':')[0])*60)
                 if int(const_time.split('-')[0].split(':')[0])*60 < time < int(const_time.split('-')[1].split(':')[0])*60:
                     if features1 <= atm["entrepreneurs"] and features2 <= atm["citizen"] and features4 <= atm["has_ramp"]:
                             data_dicts.append(atm)
         except Exception:
-            print('data error')
+            ...
     ans = f'Найдено отделений: {len(data_dicts)}'
 
     locations = [{'name': d['name'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude']} for d in
