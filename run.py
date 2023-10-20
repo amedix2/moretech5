@@ -1,24 +1,16 @@
 from flask import Flask, render_template, request
 import codecs
 import json
-
+from datetime import datetime
+import pytz
 
 app = Flask(__name__)
 
 
 def pythagoras_algorithm(locations: list[dict], longitude: float, latitude: float) -> list[dict] | str:
-    """
-    Короче, я написал функцию и долго распинаться не буду.
-    На функцию идут три значения:
-    1. locations - лист словарей у которых обязательны значения longitude и latitude
-    2. longitude - долгота чела 
-    3. latitude - широта чела
-
-    Функция сортирует locations по растоянии от чела
-    В общем все. Не обосрись!
-    """
     try:
-        return sorted(locations, key=lambda x: ((x['latitude'] - latitude) ** 2 + (x['longitude'] - longitude) ** 2) ** 0.5)
+        return sorted(locations,
+                      key=lambda x: ((x['latitude'] - latitude) ** 2 + (x['longitude'] - longitude) ** 2) ** 0.5)
     except Exception:
         return 'data error'
 
@@ -27,9 +19,6 @@ def pythagoras_algorithm(locations: list[dict], longitude: float, latitude: floa
 def index():
     with codecs.open('data/answer3.0.json', 'r', 'utf-8-sig') as f:
         data = json.load(f)
-    # print(data)
-
-    # print(locations)
 
     if request.method == 'POST':
         visit0 = 'visit0' in request.form  # atm
@@ -59,15 +48,27 @@ def index():
         features2 = False
         features3 = False
         features4 = False
-#    ans = f'{visit1}, {visit2}, {visit3}, {visit4}, {visit5}, {visit6}, {visit7}, {visit8}, {features1}, {features2}, {features3}, {features4}'
-
+    now = datetime.now().astimezone(pytz.timezone('Europe/Moscow'))
+    time = now.hour * 60 + now.minute
+    print(time)
     data_dicts = []
     for atm in data:
-        if features1 <= atm["entrepreneurs"] and features2 <= atm["citizen"] and features4 <= atm["has_ramp"]:
-            data_dicts.append(atm)
+        try:
+            if features2 and not features1:
+                const_time = atm['open_hours_ind'][now.weekday()]["hours"]
+            else:
+                const_time = atm['open_hours_ent'][now.weekday()]["hours"]
+            if const_time.lower() != 'выходной':
+                print(int(const_time.split('-')[0].split(':')[0])*60, time, int(const_time.split('-')[1].split(':')[0])*60)
+                if int(const_time.split('-')[0].split(':')[0])*60 < time < int(const_time.split('-')[1].split(':')[0])*60:
+                    if features1 <= atm["entrepreneurs"] and features2 <= atm["citizen"] and features4 <= atm["has_ramp"]:
+                            data_dicts.append(atm)
+        except Exception:
+            print('data error')
     ans = f'Найдено отделений: {len(data_dicts)}'
 
-    locations = [{'name': d['name'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude']} for d in data_dicts]
+    locations = [{'name': d['name'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude']} for d in
+                 data_dicts]
 
     return render_template('index.html', message=ans,
                            checked1=visit0, checked2=visit1, checked3=visit2, checked4=visit3, checked5=visit4,
