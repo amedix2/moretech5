@@ -64,10 +64,16 @@ def index():
                             data_dicts.append(atm)
         except Exception:
             ...
-    ans = f'Найдено отделений: {len(data_dicts)}'
 
-    locations = [{'name': d['name'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude']} for d in
+    locations = {}
+    for i in data_dicts:
+        wait = i['peps']*(0.25*visit0 + 0.37*visit1 + 0.57*visit2 + 0.57*visit3 + 0.37*visit4 + 0.67*visit5 +0.67*visit6 + 0.07*visit7 + 0.37*visit8)
+        i['wait'] = wait
+
+    ans = f'Найдено отделений: {len(data_dicts)}'
+    locations = [{'name': d['name'], 'adr': d['address'], 'lat': d['latitude'], 'lon': d['longitude'], 'pep': d['peps'], 'time': d['wait']} for d in
                  data_dicts]
+    print(locations)
 
     return render_template('index.html', message=ans,
                            checked1=visit0, checked2=visit1, checked3=visit2, checked4=visit3, checked5=visit4,
