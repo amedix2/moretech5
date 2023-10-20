@@ -74,9 +74,7 @@
 <script type="text/javascript">    
     var locations = {{locations|tojson}};
     myPlacemark = new ymaps.Placemark([location.lat, location.lon], {
-            hintContent: 'Собственный значок метки',
-            balloonContent: 'Это красивая метка'
-        }, {
+        
             // Опции.
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
